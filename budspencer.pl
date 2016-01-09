@@ -11,7 +11,7 @@ use strict;
 use DBI;
 use warnings;
 use constant ANCHOR => 70;
-system 'clear'			;
+
 #------------------------------------------------------------------------------#
 #	Seccion	1	:	Apertura													   #
 #------------------------------------------------------------------------------#
@@ -65,31 +65,37 @@ for (@references) {
 
 	push(@queries, "SELECT autor_principal, year FROM articulos WHERE pubmed_id = \"$_\"");
 }
+
+
 for (@references2) {
 	push(@queries2, "SELECT autor_principal, year FROM articulos WHERE id = \"$_\"");
 }
-@results	=	&sql_entries(@queries)	;
-@results2	=	&sql_entries(@queries2)	;
+(scalar(@references) > 0) and (@results		=	&sql_entries(@queries))			;
+(scalar(@references2) > 0) and (@results2	=	&sql_entries(@queries2))	;
 #------------------------------------------------------------------------------#
 #	Seccion	4	:	Sustitución												   #
 #------------------------------------------------------------------------------#
 
-while (@results) {
+if (scalar(@results) > 0) {
 
-	$id	=	pop(@references)	;
-	$info =	pop(@results)		;
-	push(@new_ids, $id)			;
-	@info_array	=	split("\t", $info);
-	$author		=	shift(@info_array);
-	$year		=	shift(@info_array);
-	$id = '##'.$id.'##'			;
-	$author =~ s/\s\w$//g		;
-	$author	=	'('.$author.' et Al, '.$year.')'	;
+	while (@results) {
 
-	for (@file) {
-		($_ =~ s/$id/$author/e)	;
+		print "On est ici!\n";
+		$id	=	pop(@references)	;
+		$info =	pop(@results)		;
+		push(@new_ids, $id)			;
+		@info_array	=	split("\t", $info);
+		$author		=	shift(@info_array);
+		$year		=	shift(@info_array);
+		$id = '##'.$id.'##'			;
+		$author =~ s/\s\w$//g		;
+		$author	=	'('.$author.' et Al, '.$year.')'	;
+
+		for (@file) {
+			($_ =~ s/$id/$author/e)	;
+		}
+
 	}
-
 }
 
 while (@results2) {

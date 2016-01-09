@@ -22,6 +22,7 @@ print "Por Bruno Cuevas Zuviría, 2016\n";
 our $db		=	"budspencer"	;
 our $user	=	"budspencer_user";
 our $pass	=	"bud_spencer_123";
+				
 our $host	=	"localhost";
 our $dbh	=	DBI-> connect("DBI:mysql:$db:$host",$user, $pass)
 	or die 'No conexion';

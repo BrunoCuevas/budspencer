@@ -1,10 +1,10 @@
-DROP SCHEMA IF EXISTS budspencer ;
-CREATE SCHEMA budspencer	;
-USE budspencer				;
+DROP DATABASE IF EXISTS budspencer ;
+CREATE DATABASE budspencer	;
+USE budspencer;
 DROP TABLE IF EXISTS articulos	;
 CREATE TABLE articulos (
 	titulo VARCHAR(500),
-    
+
     pubmed_id VARCHAR(20) UNIQUE NOT NULL,
     autor_principal VARCHAR(100),
     fuente VARCHAR(100),
@@ -33,3 +33,10 @@ CREATE TABLE escrito_por (
     REFERENCES autores(nombre)
     ON DELETE RESTRICT ON UPDATE CASCADE
 );
+GRANT USAGE ON *.* TO 'budspencer_user'@'localhost';
+DROP USER 'budspencer_user'@'localhost';
+CREATE USER 'budspencer_user'@'localhost' IDENTIFIED BY 'bud_spencer_123';
+
+
+GRANT SELECT ON budspencer.* TO 'budspencer_user'@'localhost' ;
+GRANT INSERT ON budspencer.* TO 'budspencer_user'@'localhost' ;
