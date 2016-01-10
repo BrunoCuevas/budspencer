@@ -11,6 +11,7 @@ sudo cp budspencer_sql_creation.sql /usr/local/budspencer
 sudo cp budspencer_xml_parser.pl /usr/local/budspencer
 sudo cp budspencer_start.pl /usr/local/budspencer
 sudo cp budspencer_help.pl /usr/local/budspencer
+sudo perl -MCPAN -e 'install XML:Simple'
 mysql -u root < "budspencer_sql_creation.sql"
 sudo sh -c "cat budspencer.sh>>/etc/bash.bashrc"
 echo -e "INSTALACION COMPLETADA"
