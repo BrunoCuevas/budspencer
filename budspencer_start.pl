@@ -16,7 +16,7 @@ if (my $flag = shift ){
 
 
 			system "perl /usr/local/budspencer/budspencer_searcher.pl $flag $argument";
-		} elsif ($flag =~ /\-t/){
+		} elsif ($flag =~ /\-i/){
 			my $file = shift	;
 			system "perl  /usr/local/budspencer/budspencer.pl $file";
 		} elsif ($flag =~ /\-x/){
